@@ -8,7 +8,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
 
 public class MainForSpring {
 
@@ -37,9 +36,17 @@ public class MainForSpring {
             }else if (command.startsWith("info")) {
                 processInfoCommand(command.split(" "));
                 continue;
+            } else if (command.equals("version")) {
+                processVersionCommand();
+                continue;
             }
             printHelp();
         }
+    }
+
+    private static void processVersionCommand() {
+        VersionPrinter versionPrinter = ctx.getBean("versionPrinter", VersionPrinter.class);
+        versionPrinter.print();
     }
 
     private static void processInfoCommand(String[] arg) {
